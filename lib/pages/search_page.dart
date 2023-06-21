@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:movie_app/constants.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-
 import '../components/movie_tile.dart';
 
 class HomePage extends StatelessWidget {
@@ -14,7 +13,13 @@ class HomePage extends StatelessWidget {
       backgroundColor: kPrimaryColor,
       appBar: AppBar(
         backgroundColor: kPrimaryColor,
-        title: const Text('All Movies'),
+        title: Column(
+          children: [
+            Text('Result', style: kSearchPageTitleStyle),
+            Text('for "Search word"',
+                style: GoogleFonts.inter(fontSize: 14, color: Colors.grey)),
+          ],
+        ),
         centerTitle: true,
         elevation: 0,
         actions: const [
@@ -28,7 +33,7 @@ class HomePage extends StatelessWidget {
         ],
       ),
       body: Padding(
-        padding: EdgeInsets.all(12),
+        padding: const EdgeInsets.all(12),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.stretch,
