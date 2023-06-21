@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:movie_app/pages/movie_page.dart';
+import 'package:movie_app/components/subtitle_container.dart';
+import 'package:movie_app/pages/movie_details_page.dart';
 import '../constants.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:movie_app/components/navigator.dart';
@@ -18,15 +19,18 @@ class MovieTile extends StatelessWidget {
           borderRadius: BorderRadius.circular(20),
           child: RawMaterialButton(
             onPressed: () {
-              nextPage(context, MoviePage());
+              nextPage(context, MovieDetailsPage());
             },
             child: Row(
               children: [
                 ClipRRect(
                     borderRadius: BorderRadius.circular(20),
-                    child: Image.asset(
-                      'assets/images/cross.jpg',
-                      fit: BoxFit.cover,
+                    child: AspectRatio(
+                      aspectRatio: 4 / 5,
+                      child: Image.asset(
+                        'assets/images/cross.jpg',
+                        fit: BoxFit.cover,
+                      ),
                     )),
                 Padding(
                   padding: const EdgeInsets.all(5.0),
@@ -71,31 +75,6 @@ class MovieTile extends StatelessWidget {
                 ),
               ],
             ),
-          ),
-        ),
-      ),
-    );
-  }
-}
-
-class SubtitleContainer extends StatelessWidget {
-  const SubtitleContainer({
-    required this.child,
-    super.key,
-  });
-  final child;
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(5.0),
-      child: ClipRRect(
-        borderRadius: BorderRadius.circular(30),
-        child: Container(
-          color: kSubtitleContainerColor,
-          child: Padding(
-            padding: const EdgeInsets.only(
-                left: 15.0, right: 15.0, top: 10.0, bottom: 10.0),
-            child: Center(child: child),
           ),
         ),
       ),

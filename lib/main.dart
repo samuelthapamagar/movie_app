@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:movie_app/pages/example_page.dart';
+import 'package:movie_app/pages/home_page.dart';
 import 'package:movie_app/pages/search_page.dart';
 
 import 'constants.dart';

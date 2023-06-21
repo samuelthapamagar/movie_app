@@ -3,8 +3,8 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:movie_app/constants.dart';
 import '../components/movie_tile.dart';
 
-class HomePage extends StatelessWidget {
-  const HomePage({Key? key}) : super(key: key);
+class SearchPage extends StatelessWidget {
+  const SearchPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -15,22 +15,34 @@ class HomePage extends StatelessWidget {
         backgroundColor: kPrimaryColor,
         title: Column(
           children: [
-            Text('Result', style: kSearchPageTitleStyle),
+            Text('Result', style: kAppBarTitleStyle),
             Text('for "Search word"',
                 style: GoogleFonts.inter(fontSize: 14, color: Colors.grey)),
           ],
         ),
         centerTitle: true,
         elevation: 0,
-        actions: const [
-          Padding(
-            padding: EdgeInsets.all(5.0),
-            child: Icon(
-              Icons.search_rounded,
-              size: 30,
+        leading: GestureDetector(
+          onTap: () {
+            Navigator.pop(context);
+          },
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(12),
+              child: Container(
+                // margin: EdgeInsets.all(5.0),
+                color: kSecondaryColor1,
+                height: 20,
+                width: 20,
+                child: Icon(
+                  Icons.arrow_back,
+                  size: 25,
+                ),
+              ),
             ),
-          )
-        ],
+          ),
+        ),
       ),
       body: Padding(
         padding: const EdgeInsets.all(12),
