@@ -3,8 +3,21 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:movie_app/constants.dart';
 import '../components/movie_tile.dart';
 
-class SearchPage extends StatelessWidget {
+class SearchPage extends StatefulWidget {
   const SearchPage({Key? key}) : super(key: key);
+
+  @override
+  State<SearchPage> createState() => _SearchPageState();
+}
+
+class _SearchPageState extends State<SearchPage> {
+  final _searchTextController = TextEditingController();
+
+  @override
+  void dispose() {
+    _searchTextController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -50,6 +63,27 @@ class SearchPage extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
+            TextField(
+              controller: _searchTextController,
+              cursorColor: Colors.grey,
+              decoration: InputDecoration(
+                filled: true,
+                fillColor: kSecondaryColor1,
+                hintText: 'Search movies',
+                prefixIcon: const Icon(Icons.search, color: Colors.white),
+                border: const OutlineInputBorder(
+                    borderSide: BorderSide(color: Colors.green, width: 5),
+                    borderRadius: BorderRadius.all(Radius.circular(20))),
+                enabledBorder: OutlineInputBorder(
+                    borderSide: const BorderSide(color: Colors.transparent),
+                    borderRadius: BorderRadius.circular(20)),
+                focusedBorder: OutlineInputBorder(
+                  borderSide: const BorderSide(color: Colors.grey),
+                  borderRadius: BorderRadius.circular(20),
+                ),
+              ),
+            ),
+            const SizedBox(height: 15),
             Expanded(
               child: ListView.builder(
                 itemCount: 20,

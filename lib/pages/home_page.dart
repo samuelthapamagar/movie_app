@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:movie_app/constants.dart';
 import 'package:movie_app/components/navigator.dart';
-import 'package:movie_app/pages/movie_details_page.dart';
+import 'package:movie_app/components/movie_poster_builder.dart';
 import 'package:movie_app/pages/search_page.dart';
 
 class HomePage extends StatelessWidget {
@@ -41,6 +41,23 @@ class HomePage extends StatelessWidget {
             )
           ],
         ),
+        drawer: Drawer(
+          child: Column(
+            children: [
+              Container(
+                height: 200,
+                width: double.maxFinite,
+                child:
+                    Image.asset('assets/images/parrot.jpg', fit: BoxFit.cover),
+              ),
+              Icon(Icons.add),
+              Icon(Icons.add),
+              Icon(Icons.add),
+              Icon(Icons.add),
+              Icon(Icons.add),
+            ],
+          ),
+        ),
         body: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 12.0),
           child: SingleChildScrollView(
@@ -61,7 +78,7 @@ class HomePage extends StatelessWidget {
                       scrollDirection: Axis.horizontal,
                       itemCount: 20,
                       itemBuilder: (context, index) =>
-                          BuildMoviePoster(index: index)),
+                          MoviePosterBuilder(index: index)),
                 ),
                 SizedBox(height: 20),
                 Text('Series',
@@ -76,7 +93,7 @@ class HomePage extends StatelessWidget {
                       scrollDirection: Axis.horizontal,
                       itemCount: 20,
                       itemBuilder: (context, index) =>
-                          BuildMoviePoster(index: index)),
+                          MoviePosterBuilder(index: index)),
                 ),
                 SizedBox(height: 20),
                 Text('Drama',
@@ -89,7 +106,7 @@ class HomePage extends StatelessWidget {
                       scrollDirection: Axis.horizontal,
                       itemCount: 20,
                       itemBuilder: (context, index) =>
-                          BuildMoviePoster(index: index)),
+                          MoviePosterBuilder(index: index)),
                 ),
                 SizedBox(height: 20),
                 Text('Documentries',
@@ -104,44 +121,11 @@ class HomePage extends StatelessWidget {
                       scrollDirection: Axis.horizontal,
                       itemCount: 20,
                       itemBuilder: (context, index) =>
-                          BuildMoviePoster(index: index)),
+                          MoviePosterBuilder(index: index)),
                 ),
                 SizedBox(height: 20),
                 Center(child: Text('This is homepage')),
               ],
-            ),
-          ),
-        ),
-      ),
-    );
-  }
-}
-
-class BuildMoviePoster extends StatelessWidget {
-  const BuildMoviePoster({
-    required this.index,
-    super.key,
-  });
-  final index;
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: AspectRatio(
-        aspectRatio: 3 / 4,
-        child: ClipRRect(
-          borderRadius: BorderRadius.circular(15),
-          child: Material(
-            child: Ink.image(
-              fit: BoxFit.cover,
-              image: AssetImage(
-                'assets/images/parrot.jpg',
-              ),
-              child: InkWell(
-                onTap: () {
-                  nextPage(context, MovieDetailsPage());
-                },
-              ),
             ),
           ),
         ),

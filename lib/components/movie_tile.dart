@@ -40,7 +40,7 @@ class MovieTile extends StatelessWidget {
                     children: [
                       Padding(
                         padding: const EdgeInsets.only(left: 5),
-                        child: Text('Movie Title',
+                        child: Text('Movie Title $index',
                             style: GoogleFonts.poppins(
                                 fontWeight: FontWeight.bold, fontSize: 19)),
                       ),
