@@ -1,14 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:movie_app/services/networking.dart';
 import '../pages/movie_details_page.dart';
 import 'navigator.dart';
 
 class MoviePosterBuilder extends StatelessWidget {
-  const MoviePosterBuilder({
+  MoviePosterBuilder({
     required this.index,
+    required this.movieList,
     super.key,
   });
+
   final index;
+  final movieList;
+  final String imageUrl = 'https://image.tmdb.org/t/p/w500';
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -26,9 +32,8 @@ class MoviePosterBuilder extends StatelessWidget {
                 child: Material(
                   child: Ink.image(
                     fit: BoxFit.cover,
-                    image: AssetImage(
-                      'assets/images/parrot.jpg',
-                    ),
+                    image: NetworkImage(
+                        imageUrl + movieList[index]['poster_path']),
                     child: InkWell(
                       onTap: () {
                         nextPage(context, MovieDetailsPage());
@@ -42,8 +47,14 @@ class MoviePosterBuilder extends StatelessWidget {
         ),
         SizedBox(
             width: 120,
-            child:
-                Center(child: Text('Movie name', overflow: TextOverflow.clip))),
+            child: Center(
+                child: Text(
+                    movieList[index]['name'] ??
+                        movieList[index]['original_name'] ??
+                        movieList[index]['original_name'] ??
+                        movieList[index]['title'],
+                    style: GoogleFonts.poppins(),
+                    overflow: TextOverflow.ellipsis))),
       ],
     );
   }

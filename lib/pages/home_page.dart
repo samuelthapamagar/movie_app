@@ -3,9 +3,46 @@ import 'package:movie_app/constants.dart';
 import 'package:movie_app/components/navigator.dart';
 import 'package:movie_app/components/movie_poster_builder.dart';
 import 'package:movie_app/pages/search_page.dart';
+import 'package:movie_app/services/networking.dart';
 
-class HomePage extends StatelessWidget {
-  const HomePage({Key? key}) : super(key: key);
+class HomePage extends StatefulWidget {
+  HomePage({Key? key}) : super(key: key);
+
+  @override
+  State<HomePage> createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
+  List trendingMovies = [];
+  List series = [];
+  List topRated = [];
+  List upcoming = [];
+  List nowPlaying = [];
+`
+  loadMovies() async {
+    NetworkHepler networkHepler = NetworkHepler();
+    List trendingMoviesResult = await networkHepler.loadTrendingMovies();
+    List seriesResult = await networkHepler.loadSeries();
+    List topRatedResult = await networkHepler.loadTopRated();
+    List upcomingResult = await networkHepler.loadUpcoming();
+    List nowPlayingResult = await networkHepler.loadNowPlaying();
+
+    setState(() {
+      trendingMovies = trendingMoviesResult;
+      series = seriesResult;
+      topRated = topRatedResult;
+      upcoming = upcomingResult;
+      nowPlaying = nowPlayingResult;
+    });
+
+    print(trendingMovies);
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    loadMovies();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -76,9 +113,9 @@ class HomePage extends StatelessWidget {
                   // width: 100,
                   child: ListView.builder(
                       scrollDirection: Axis.horizontal,
-                      itemCount: 20,
-                      itemBuilder: (context, index) =>
-                          MoviePosterBuilder(index: index)),
+                      itemCount: trendingMovies.length,
+                      itemBuilder: (context, index) => MoviePosterBuilder(
+                          index: index, movieList: trendingMovies)),
                 ),
                 SizedBox(height: 20),
                 Text('Series',
@@ -91,12 +128,12 @@ class HomePage extends StatelessWidget {
                   // width: 100,
                   child: ListView.builder(
                       scrollDirection: Axis.horizontal,
-                      itemCount: 20,
+                      itemCount: series.length,
                       itemBuilder: (context, index) =>
-                          MoviePosterBuilder(index: index)),
+                          MoviePosterBuilder(index: index, movieList: series)),
                 ),
                 SizedBox(height: 20),
-                Text('Drama',
+                Text('Top Rated',
                     style:
                         TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
                 SizedBox(height: 10),
@@ -104,12 +141,12 @@ class HomePage extends StatelessWidget {
                   height: 200,
                   child: ListView.builder(
                       scrollDirection: Axis.horizontal,
-                      itemCount: 20,
-                      itemBuilder: (context, index) =>
-                          MoviePosterBuilder(index: index)),
+                      itemCount: topRated.length,
+                      itemBuilder: (context, index) => MoviePosterBuilder(
+                          index: index, movieList: topRated)),
                 ),
                 SizedBox(height: 20),
-                Text('Documentries',
+                Text('Upcoming',
                     style:
                         TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
                 SizedBox(height: 10),
@@ -119,12 +156,13 @@ class HomePage extends StatelessWidget {
                   // width: 100,
                   child: ListView.builder(
                       scrollDirection: Axis.horizontal,
-                      itemCount: 20,
-                      itemBuilder: (context, index) =>
-                          MoviePosterBuilder(index: index)),
+                      itemCount: upcoming.length,
+                      itemBuilder: (context, index) => MoviePosterBuilder(
+                            index: index,
+                            movieList: upcoming,
+                          )),
                 ),
                 SizedBox(height: 20),
-                Center(child: Text('This is homepage')),
               ],
             ),
           ),
