@@ -18,7 +18,7 @@ class _HomePageState extends State<HomePage> {
   List topRated = [];
   List upcoming = [];
   List nowPlaying = [];
-`
+
   loadMovies() async {
     NetworkHepler networkHepler = NetworkHepler();
     List trendingMoviesResult = await networkHepler.loadTrendingMovies();
