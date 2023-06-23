@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-
 import '../constants.dart';
 
 class SubtitleContainer extends StatelessWidget {
@@ -7,7 +6,7 @@ class SubtitleContainer extends StatelessWidget {
     required this.child,
     super.key,
   });
-  final child;
+  final Widget child;
   @override
   Widget build(BuildContext context) {
     return Padding(

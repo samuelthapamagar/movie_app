@@ -1,26 +1,25 @@
-import 'package:fast_cached_network_image/fast_cached_network_image.dart';
+//This widget is for building the poster a movie
+
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:movie_app/services/networking.dart';
 import '../pages/movie_details_page.dart';
 import 'navigator.dart';
 
 class MoviePosterBuilder extends StatelessWidget {
-  MoviePosterBuilder({
+  const MoviePosterBuilder({
     required this.index,
     required this.movieList,
     super.key,
   });
 
-  final index;
-  final movieList;
-  final String imageUrl = 'https://image.tmdb.org/t/p/w500';
+  final int index;
+  final List movieList;
+  final String imageUrl =
+      'https://image.tmdb.org/t/p/w500'; // This is the general link for all images
 
   @override
   Widget build(BuildContext context) {
     return Column(
-      // mainAxisAlignment: MainAxisAlignment.center,
-      // crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         Expanded(
           child: Padding(
@@ -33,9 +32,11 @@ class MoviePosterBuilder extends StatelessWidget {
                 child: Material(
                   child: Ink.image(
                     fit: BoxFit.cover,
-                    image: FastCachedImageProvider(
-                      imageUrl + movieList[index]['poster_path'],
-                    ),
+                    image: NetworkImage(
+                        imageUrl + movieList[index]['poster_path']),
+                    // FastCachedImageProvider(
+                    //   imageUrl + movieList[index]['poster_path'],
+                    // ),
                     child: InkWell(onTap: () {
                       nextPage(context,
                           MovieDetailsPage(selectedMovie: movieList[index]));
@@ -50,6 +51,7 @@ class MoviePosterBuilder extends StatelessWidget {
             width: 120,
             child: Center(
                 child: Text(
+                    // some movies have their name contained in different key. so every possible key is checked to detect the name
                     movieList[index]['name'] ??
                         movieList[index]['title'] ??
                         movieList[index]['original_name'] ??

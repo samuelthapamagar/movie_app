@@ -1,3 +1,6 @@
+//This file inclutes all the constant variables of the project.
+//Some variables are not constant though.
+
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 

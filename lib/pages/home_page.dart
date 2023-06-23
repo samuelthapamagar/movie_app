@@ -1,14 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:movie_app/constants.dart';
 import 'package:movie_app/components/navigator.dart';
-import 'package:movie_app/components/movie_poster_builder.dart';
 import 'package:movie_app/pages/search_page.dart';
 import 'package:movie_app/services/networking.dart';
-
 import '../components/movie_catagory_with_scroller.dart';
+import '../components/nav_bar.dart';
 
 class HomePage extends StatefulWidget {
-  HomePage({Key? key}) : super(key: key);
+  const HomePage({Key? key}) : super(key: key);
 
   @override
   State<HomePage> createState() => _HomePageState();
@@ -22,12 +21,41 @@ class _HomePageState extends State<HomePage> {
   List nowPlaying = [];
 
   loadMovies() async {
+    List trendingMoviesResult = [];
+    List seriesResult = [];
+    List topRatedResult = [];
+    List upcomingResult = [];
+    List nowPlayingResult = [];
     NetworkHepler networkHepler = NetworkHepler();
-    List trendingMoviesResult = await networkHepler.loadTrendingMovies();
-    List seriesResult = await networkHepler.loadSeries();
-    List topRatedResult = await networkHepler.loadTopRated();
-    List upcomingResult = await networkHepler.loadUpcoming();
-    List nowPlayingResult = await networkHepler.loadNowPlaying();
+
+    try {
+      trendingMoviesResult = await networkHepler.loadTrendingMovies();
+    } catch (e) {
+      snackBarMessage(message: 'Error loading trending movies.');
+    }
+
+    try {
+      seriesResult = await networkHepler.loadSeries();
+    } catch (e) {
+      snackBarMessage(message: 'Error loading series.');
+    }
+
+    try {
+      topRatedResult = await networkHepler.loadTopRated();
+    } catch (e) {
+      snackBarMessage(message: 'Error loading Top rated movies');
+    }
+    try {
+      upcomingResult = await networkHepler.loadUpcoming();
+    } catch (e) {
+      snackBarMessage(message: 'Error loading Top upcoming movies');
+    }
+
+    try {
+      nowPlayingResult = await networkHepler.loadNowPlaying();
+    } catch (e) {
+      snackBarMessage(message: 'Error loading now playing movies');
+    }
 
     setState(() {
       trendingMovies = trendingMoviesResult;
@@ -36,9 +64,22 @@ class _HomePageState extends State<HomePage> {
       upcoming = upcomingResult;
       nowPlaying = nowPlayingResult;
     });
+  }
 
-    // print(trendingMovies);
-    // print(series);
+  //this if function is created to show the error message to the user through snackbar
+  snackBarMessage({required String message}) {
+    SnackBar snackBar = SnackBar(
+      backgroundColor: Colors.transparent,
+      content: ClipRRect(
+        borderRadius: BorderRadius.circular(12),
+        child: Container(
+            height: 40,
+            color: const Color(0xFFF5F0E8),
+            child: Center(child: Text(message))),
+      ),
+      duration: const Duration(seconds: 3),
+    );
+    ScaffoldMessenger.of(context).showSnackBar(snackBar);
   }
 
   @override
@@ -81,23 +122,9 @@ class _HomePageState extends State<HomePage> {
             )
           ],
         ),
-        drawer: Drawer(
-          child: Column(
-            children: [
-              Container(
-                height: 200,
-                width: double.maxFinite,
-                child:
-                    Image.asset('assets/images/parrot.jpg', fit: BoxFit.cover),
-              ),
-              Icon(Icons.add),
-              Icon(Icons.add),
-              Icon(Icons.add),
-              Icon(Icons.add),
-              Icon(Icons.add),
-            ],
-          ),
-        ),
+
+        //Drawer is made for design only. It's functions can be added later.
+        drawer: const NavBar(),
         body: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 12.0),
           child: SingleChildScrollView(
@@ -117,6 +144,9 @@ class _HomePageState extends State<HomePage> {
                 const SizedBox(height: 20),
                 MovieCatagoryWithScroller(
                     catagory: 'Upcoming', movieList: upcoming),
+                const SizedBox(height: 20),
+                MovieCatagoryWithScroller(
+                    catagory: 'Now Playing', movieList: nowPlaying),
                 const SizedBox(height: 20),
               ],
             ),

@@ -41,7 +41,7 @@ class _SearchPageState extends State<SearchPage> {
         title: Column(
           children: [
             Text('Result', style: kAppBarTitleStyle),
-            Text("${_searchTextController.text}",
+            Text(_searchTextController.text,
                 style: GoogleFonts.inter(fontSize: 14, color: Colors.grey)),
           ],
         ),
@@ -60,7 +60,7 @@ class _SearchPageState extends State<SearchPage> {
                 color: kSecondaryColor1,
                 height: 20,
                 width: 20,
-                child: Icon(
+                child: const Icon(
                   Icons.arrow_back,
                   size: 25,
                 ),

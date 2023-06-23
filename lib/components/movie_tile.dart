@@ -1,7 +1,8 @@
+//This widget is build to display the movie poster and its details at one glance. It is just like ListTile
+
 import 'package:flutter/material.dart';
 import 'package:movie_app/components/subtitle_container.dart';
 import 'package:movie_app/pages/movie_details_page.dart';
-import '../constants.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:movie_app/components/navigator.dart';
 
@@ -9,9 +10,11 @@ class MovieTile extends StatelessWidget {
   const MovieTile({required this.index, required this.selectedMovie, Key? key})
       : super(key: key);
   final index;
-  final selectedMovie;
-  final String imageUrl = 'https://image.tmdb.org/t/p/w500';
+  final Map selectedMovie;
+  final String imageUrl =
+      'https://image.tmdb.org/t/p/w500'; //this is the general link for all images
 
+  //some movies have null value in poster address. This function is created for null safety so that the 'no image' warning is shown if the movie does not have it's poster address
   String getPosterUrl() {
     if (selectedMovie['backdrop_path'] != null) {
       String imageUrl2 = selectedMovie['backdrop_path'];
@@ -27,11 +30,6 @@ class MovieTile extends StatelessWidget {
       return noImageUrl;
     }
   }
-
-  // String imageUrl2 =
-  //     selectedMovie['backdrop_path'] ??
-  //         selectedMovie['poster_path'] ??
-  //         selectedMovie['known_for'][0]['poster_path']
 
   @override
   Widget build(BuildContext context) {
@@ -59,11 +57,11 @@ class MovieTile extends StatelessWidget {
                     padding: const EdgeInsets.all(5.0),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
-                      // mainAxisAlignment: MainAxisAlignment.start,
                       children: [
                         Padding(
                           padding: const EdgeInsets.only(left: 5),
                           child: Text(
+                              // some movies have their name contained in different key. so every possible key is checked to detect the name
                               selectedMovie['name'] ??
                                   selectedMovie['title'] ??
                                   selectedMovie['original_name'] ??

@@ -1,3 +1,5 @@
+//These functions are created just to navigate between pages easily
+
 import 'package:flutter/material.dart';
 
 nextPage(context, page) {

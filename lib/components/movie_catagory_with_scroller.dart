@@ -1,5 +1,6 @@
-import 'package:flutter/material.dart';
+//This widget creates movie catagory title with horizontal listview ot the movies
 
+import 'package:flutter/material.dart';
 import 'movie_poster_builder.dart';
 
 class MovieCatagoryWithScroller extends StatelessWidget {
@@ -18,9 +19,9 @@ class MovieCatagoryWithScroller extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(catagory,
-            style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
-        SizedBox(height: 10),
-        Container(
+            style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
+        const SizedBox(height: 10),
+        SizedBox(
           height: 200,
           // color: Colors.red,
           // width: 100,
