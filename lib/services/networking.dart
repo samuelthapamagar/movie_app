@@ -2,18 +2,22 @@ import 'package:flutter/material.dart';
 import 'package:tmdb_api/tmdb_api.dart';
 
 class NetworkHepler {
-  final String apiKey = 'c60834cb4b6d3b7e9d32c8ff843caff1';
+  final String apiKey = '60834cb4b6d3b7e9d32c8ff843caff1';
   final readAccessToken =
       'eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJjNjA4MzRjYjRiNmQzYjdlOWQzMmM4ZmY4NDNjYWZmMSIsInN1YiI6IjY0OTMzOTk0OGVlMGE5MDBhYjFkN2RhNyIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.BOSS8B1kRAqRmhpEjjIwQpLVsiDgTivQJYqL-XTn4II';
 
   loadTrendingMovies() async {
-    TMDB tmdbWithCustomLogs = TMDB(ApiKeys(apiKey, readAccessToken),
-        logConfig: const ConfigLogger(
-          showLogs: true,
-          showErrorLogs: true,
-        ));
-    Map response = await tmdbWithCustomLogs.v3.trending.getTrending();
-    return response['results'];
+    try {
+      TMDB tmdbWithCustomLogs = TMDB(ApiKeys(apiKey, readAccessToken),
+          logConfig: const ConfigLogger(
+            showLogs: true,
+            showErrorLogs: true,
+          ));
+      Map response = await tmdbWithCustomLogs.v3.trending.getTrending();
+      return response['results'];
+    } catch (e) {
+      print('Error : $e');
+    }
 
     // Map response = await tmdbWithCustomLogs.v3.trending.getTrending();
     // return response['results'];
@@ -56,6 +60,17 @@ class NetworkHepler {
           showErrorLogs: true,
         ));
     Map response = await tmdbWithCustomLogs.v3.movies.getNowPlaying();
+    return response['results'];
+  }
+
+  searchMovies({required String searchWord}) async {
+    TMDB tmdbWithCustomLogs = TMDB(ApiKeys(apiKey, readAccessToken),
+        logConfig: const ConfigLogger(
+          showLogs: true,
+          showErrorLogs: true,
+        ));
+    Map response = await tmdbWithCustomLogs.v3.search.queryMulti(searchWord);
+    // print(response);
     return response['results'];
   }
 }

@@ -17,6 +17,9 @@ dependencies:
   font_awesome_flutter: ^10.4.0
   google_fonts: ^5.1.0
   tmdb_api:
+  fast_cached_network_image:
+
+
 
 
 dev_dependencies:

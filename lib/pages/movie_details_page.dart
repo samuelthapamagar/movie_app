@@ -1,13 +1,39 @@
+import 'package:fast_cached_network_image/fast_cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:movie_app/components/subtitle_container.dart';
 import 'package:movie_app/constants.dart';
 
 class MovieDetailsPage extends StatelessWidget {
-  const MovieDetailsPage({Key? key}) : super(key: key);
+  const MovieDetailsPage({required this.selectedMovie, Key? key})
+      : super(key: key);
+
+  final selectedMovie;
+
+  final String imageUrl = 'https://image.tmdb.org/t/p/w500';
+
+  String getPosterUrl() {
+    if (selectedMovie['backdrop_path'] != null) {
+      String imageUrl2 = selectedMovie['backdrop_path'];
+      String fullImageUrl = imageUrl + imageUrl2;
+      return fullImageUrl;
+    } else if (selectedMovie['poster_path'] != null) {
+      String imageUrl2 = selectedMovie['poster_path'];
+      String fullImageUrl = imageUrl + imageUrl2;
+      return fullImageUrl;
+    } else {
+      String noImageUrl =
+          'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRPuTtKOVtKDbqZOxpb5f3-jMfRbcH6j2Owq71kzcXRsQ&s';
+      return noImageUrl;
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
+    // final String imageUrl2 =
+    //     selectedMovie['backdrop_path'] ?? selectedMovie['poster_path'];
+    // final fullImageUrl = imageUrl + imageUrl2;
     return SafeArea(
         child: Scaffold(
       backgroundColor: kPrimaryColor,
@@ -16,10 +42,10 @@ class MovieDetailsPage extends StatelessWidget {
           Stack(
             children: [
               Container(
-                  height: 250,
-                  width: double.maxFinite,
-                  child: Image.asset('assets/images/parrot.jpg',
-                      fit: BoxFit.cover)),
+                height: 300,
+                width: double.maxFinite,
+                child: Image.network(getPosterUrl(), fit: BoxFit.cover),
+              ),
               Row(
                 children: [
                   GestureDetector(
@@ -56,92 +82,83 @@ class MovieDetailsPage extends StatelessWidget {
                 children: [
                   Row(
                     children: [
-                      Text('Release Year',
+                      Text(
+                          selectedMovie['first_air_date'] ??
+                              selectedMovie['release_date'] ??
+                              '',
                           style: GoogleFonts.poppins(
                               fontSize: 14, color: Colors.lightGreen)),
                       SizedBox(width: 10),
-                      Text('02:05:30',
+                      Icon(Icons.language, color: Colors.grey, size: 14),
+                      SizedBox(width: 3),
+                      Text(selectedMovie['original_language'] ?? '',
                           style: GoogleFonts.poppins(
                               fontSize: 14, color: Colors.grey)),
                     ],
                   ),
+                  SizedBox(height: 5),
                   Row(
                     children: [
                       Icon(Icons.star, size: 15, color: Color(0xFFFAC301)),
                       SizedBox(width: 5),
-                      Text('Rating', style: GoogleFonts.poppins(fontSize: 14)),
+                      Text(selectedMovie['vote_average'].toString(),
+                          style: GoogleFonts.poppins(fontSize: 14)),
                     ],
                   ),
-                  const Center(
+                  // const Center(
+                  //   child: SizedBox(
+                  //     width: 200,
+                  //     height: 50,
+                  //     child: SubtitleContainer(
+                  //       child: Row(
+                  //         mainAxisAlignment: MainAxisAlignment.center,
+                  //         children: [
+                  //           Icon(Icons.play_arrow, size: 20),
+                  //           SizedBox(width: 5),
+                  //           Text('Play')
+                  //         ],
+                  //       ),
+                  //     ),
+                  //   ),
+                  // ),
+                  const SizedBox(height: 5),
+                  Center(
+                    child: Text(
+                        selectedMovie['name'] ??
+                            selectedMovie['title'] ??
+                            selectedMovie['original_name'] ??
+                            selectedMovie['original_title'] ??
+                            '',
+                        overflow: TextOverflow.clip,
+                        style: GoogleFonts.poppins(
+                            fontWeight: FontWeight.bold, fontSize: 22)),
+                  ),
+                  Center(
                     child: SizedBox(
                       width: 200,
-                      height: 50,
                       child: SubtitleContainer(
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Icon(Icons.play_arrow, size: 20),
-                            SizedBox(width: 5),
-                            Text('Play')
-                          ],
-                        ),
+                        child: Text(
+                            'Popularity : ${selectedMovie['popularity'].toString()}',
+                            style: GoogleFonts.poppins(
+                                fontSize: 12, fontWeight: FontWeight.bold)),
                       ),
                     ),
                   ),
-                  const SizedBox(height: 5),
-                  Text('Movie Title',
-                      style: GoogleFonts.poppins(
-                          fontWeight: FontWeight.bold, fontSize: 20)),
-                  Row(
-                    children: [
-                      SizedBox(
-                        height: 50,
-                        child: Center(
-                          child: Row(
-                            children: [
-                              SubtitleContainer(
-                                  child: Text('Catagory 1',
-                                      style: GoogleFonts.poppins(fontSize: 10)))
-                            ],
-                          ),
-                        ),
-                      ),
-                      SizedBox(
-                        height: 50,
-                        child: Center(
-                          child: Row(
-                            children: [
-                              SubtitleContainer(
-                                  child: Text('Catagory 2',
-                                      style: GoogleFonts.poppins(fontSize: 10)))
-                            ],
-                          ),
-                        ),
-                      ),
-                      SizedBox(
-                        height: 50,
-                        child: Center(
-                          child: Row(
-                            children: [
-                              SubtitleContainer(
-                                  child: Text('Catagory 3',
-                                      style: GoogleFonts.poppins(fontSize: 10)))
-                            ],
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
                   const SizedBox(height: 10),
+                  Text('Overview :', style: GoogleFonts.poppins(fontSize: 15)),
                   Expanded(
                     child: SingleChildScrollView(
-                      child: Column(
-                        children: [
-                          Text(
-                            'This section is for movie details. Im having the same problem but i dont want to use SizedBox since i want to position the widget at the end of the screen and using sizedBox seems quite iresponsive. I send the code in paste bin and commented where im trying to put SpacerIm having the same problem but i dont want to use SizedBox since i want to position the widget at the end of the screen and using sizedBox seems quite iresponsive. I send the code in paste bin and commented where im trying to put SpacerIm having the same problem but i dont want to use SizedBox since i want to position the widget at the end of the screen and using sizedBox seems quite iresponsive. I send the code in paste bin and commented where im trying to put SpacerIm having the same problem but i dont want to use SizedBox since i want to position the widget at the end of the screen and using sizedBox seems quite iresponsive. I send the code in paste bin and commented where im trying to put SpacerIm having the same problem but i dont want to use SizedBox since i want to position the widget at the end of the screen and using sizedBox seems quite iresponsive. I send the code in paste bin and commented where im trying to put SpacerIm having the same problem but i dont want to use SizedBox since i want to position the widget at the end of the screen and using sizedBox seems quite iresponsive. I send the code in paste bin and commented where im trying to put SpacerIm having the same problem but i dont want to use SizedBox since i want to position the widget at the end of the screen and using sizedBox seems quite iresponsive. I send the code in paste bin and commented where im trying to put SpacerIm having the same problem but i dont want to use SizedBox since i want to position the widget at the end of the screen and using sizedBox seems quite iresponsive. I send the code in paste bin and commented where im trying to put SpacerIm having the same problem but i dont want to use SizedBox since i want to position the widget at the end of the screen and using sizedBox seems quite iresponsive. I send the code in paste bin and commented where im trying to put Spacer',
-                            style: GoogleFonts.poppins(),
-                          ),
-                        ],
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              selectedMovie['overview'] ?? '',
+                              style: GoogleFonts.poppins(),
+                            ),
+                          ],
+                        ),
                       ),
                     ),
                   ),

@@ -1,3 +1,4 @@
+import 'package:fast_cached_network_image/fast_cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:movie_app/services/networking.dart';
@@ -32,13 +33,13 @@ class MoviePosterBuilder extends StatelessWidget {
                 child: Material(
                   child: Ink.image(
                     fit: BoxFit.cover,
-                    image: NetworkImage(
-                        imageUrl + movieList[index]['poster_path']),
-                    child: InkWell(
-                      onTap: () {
-                        nextPage(context, MovieDetailsPage());
-                      },
+                    image: FastCachedImageProvider(
+                      imageUrl + movieList[index]['poster_path'],
                     ),
+                    child: InkWell(onTap: () {
+                      nextPage(context,
+                          MovieDetailsPage(selectedMovie: movieList[index]));
+                    }),
                   ),
                 ),
               ),
@@ -50,9 +51,9 @@ class MoviePosterBuilder extends StatelessWidget {
             child: Center(
                 child: Text(
                     movieList[index]['name'] ??
+                        movieList[index]['title'] ??
                         movieList[index]['original_name'] ??
-                        movieList[index]['original_name'] ??
-                        movieList[index]['title'],
+                        movieList[index]['original_title'],
                     style: GoogleFonts.poppins(),
                     overflow: TextOverflow.ellipsis))),
       ],

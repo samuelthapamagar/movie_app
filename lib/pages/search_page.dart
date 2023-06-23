@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:movie_app/constants.dart';
+import 'package:movie_app/services/networking.dart';
 import '../components/movie_tile.dart';
 
 class SearchPage extends StatefulWidget {
@@ -12,6 +13,17 @@ class SearchPage extends StatefulWidget {
 
 class _SearchPageState extends State<SearchPage> {
   final _searchTextController = TextEditingController();
+  List searchedMovies = [];
+
+  Future startSearching({required String value}) async {
+    NetworkHepler networkHepler = NetworkHepler();
+    List searchedMoviesResult =
+        await networkHepler.searchMovies(searchWord: value);
+    setState(() {
+      searchedMovies = searchedMoviesResult;
+    });
+    // print(searchedMovies);
+  }
 
   @override
   void dispose() {
@@ -29,7 +41,7 @@ class _SearchPageState extends State<SearchPage> {
         title: Column(
           children: [
             Text('Result', style: kAppBarTitleStyle),
-            Text('for "Search word"',
+            Text("${_searchTextController.text}",
                 style: GoogleFonts.inter(fontSize: 14, color: Colors.grey)),
           ],
         ),
@@ -64,6 +76,9 @@ class _SearchPageState extends State<SearchPage> {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             TextField(
+              onSubmitted: (String value) {
+                startSearching(value: value);
+              },
               controller: _searchTextController,
               cursorColor: Colors.grey,
               decoration: InputDecoration(
@@ -86,9 +101,10 @@ class _SearchPageState extends State<SearchPage> {
             const SizedBox(height: 15),
             Expanded(
               child: ListView.builder(
-                itemCount: 20,
+                itemCount: searchedMovies.length,
                 itemBuilder: (context, index) {
-                  return MovieTile(index: index);
+                  return MovieTile(
+                      index: index, selectedMovie: searchedMovies[index]);
                 },
               ),
             )

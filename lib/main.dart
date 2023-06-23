@@ -1,3 +1,4 @@
+import 'package:fast_cached_network_image/fast_cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:movie_app/pages/example_page.dart';
 import 'package:movie_app/pages/home_page.dart';
@@ -6,6 +7,7 @@ import 'package:movie_app/pages/search_page.dart';
 import 'constants.dart';
 
 void main() {
+  FastCachedImageConfig.init();
   runApp(const MyApp());
 }
 

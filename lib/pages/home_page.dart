@@ -5,6 +5,8 @@ import 'package:movie_app/components/movie_poster_builder.dart';
 import 'package:movie_app/pages/search_page.dart';
 import 'package:movie_app/services/networking.dart';
 
+import '../components/movie_catagory_with_scroller.dart';
+
 class HomePage extends StatefulWidget {
   HomePage({Key? key}) : super(key: key);
 
@@ -35,7 +37,8 @@ class _HomePageState extends State<HomePage> {
       nowPlaying = nowPlayingResult;
     });
 
-    print(trendingMovies);
+    // print(trendingMovies);
+    // print(series);
   }
 
   @override
@@ -102,67 +105,19 @@ class _HomePageState extends State<HomePage> {
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
-                SizedBox(height: 30),
-                Text('Trending Now',
-                    style:
-                        TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
-                SizedBox(height: 10),
-                Container(
-                  height: 200,
-                  // color: Colors.red,
-                  // width: 100,
-                  child: ListView.builder(
-                      scrollDirection: Axis.horizontal,
-                      itemCount: trendingMovies.length,
-                      itemBuilder: (context, index) => MoviePosterBuilder(
-                          index: index, movieList: trendingMovies)),
-                ),
-                SizedBox(height: 20),
-                Text('Series',
-                    style:
-                        TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
-                SizedBox(height: 10),
-                Container(
-                  height: 200,
-                  // color: Colors.red,
-                  // width: 100,
-                  child: ListView.builder(
-                      scrollDirection: Axis.horizontal,
-                      itemCount: series.length,
-                      itemBuilder: (context, index) =>
-                          MoviePosterBuilder(index: index, movieList: series)),
-                ),
-                SizedBox(height: 20),
-                Text('Top Rated',
-                    style:
-                        TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
-                SizedBox(height: 10),
-                Container(
-                  height: 200,
-                  child: ListView.builder(
-                      scrollDirection: Axis.horizontal,
-                      itemCount: topRated.length,
-                      itemBuilder: (context, index) => MoviePosterBuilder(
-                          index: index, movieList: topRated)),
-                ),
-                SizedBox(height: 20),
-                Text('Upcoming',
-                    style:
-                        TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
-                SizedBox(height: 10),
-                Container(
-                  height: 200,
-                  // color: Colors.red,
-                  // width: 100,
-                  child: ListView.builder(
-                      scrollDirection: Axis.horizontal,
-                      itemCount: upcoming.length,
-                      itemBuilder: (context, index) => MoviePosterBuilder(
-                            index: index,
-                            movieList: upcoming,
-                          )),
-                ),
-                SizedBox(height: 20),
+                const SizedBox(height: 30),
+                MovieCatagoryWithScroller(
+                    catagory: 'Trending Now', movieList: trendingMovies),
+                const SizedBox(height: 20),
+                MovieCatagoryWithScroller(
+                    catagory: 'Series', movieList: series),
+                const SizedBox(height: 20),
+                MovieCatagoryWithScroller(
+                    catagory: 'Top Rated', movieList: topRated),
+                const SizedBox(height: 20),
+                MovieCatagoryWithScroller(
+                    catagory: 'Upcoming', movieList: upcoming),
+                const SizedBox(height: 20),
               ],
             ),
           ),
