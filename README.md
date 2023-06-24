@@ -1,5 +1,6 @@
 # movie_app
-
+ 
+Some screenshots of the app :
 
 <img src="assets\screenshots/sh_1.jpeg" width="350" height="777" />
 
