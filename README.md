@@ -1,15 +1,17 @@
 # movie_app
 
-A new Flutter project.
 
-## Getting Started
+<img src="assets\screenshots/sh_1.jpeg" width="350" height="777" />
 
-This project is a starting point for a Flutter application.
+<img src="assets\screenshots/sh_2.jpeg" width="350" height="777" />
 
-A few resources to get you started if this is your first Flutter project:
+<img src="assets\screenshots/sh_3.jpeg" width="350" height="777" />
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+<img src="assets\screenshots/sh_4.jpeg" width="350" height="777" />
+
+<img src="assets\screenshots/sh_5.jpeg" width="350" height="777" />
+
+
 
 For help getting started with Flutter development, view the
 [online documentation](https://docs.flutter.dev/), which offers tutorials,
