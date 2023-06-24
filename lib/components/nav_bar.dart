@@ -17,7 +17,7 @@ class NavBar extends StatelessWidget {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Image.asset('assets/images/logo_1.jpg', scale: 1.5),
+                Image.asset('assets/images/logo_1.png', scale: 1.5),
                 const SizedBox(height: 5),
                 Text(
                   'Movie App',
@@ -38,12 +38,22 @@ class NavBar extends StatelessWidget {
             ),
           ),
           const Divider(),
-          const InkWell(
-            child: ListTile(
+          InkWell(
+            onTap: () {},
+            child: const ListTile(
               leading: Icon(Icons.people),
               title: Text('About App'),
             ),
           ),
+          const Divider(),
+          InkWell(
+            onTap: () {},
+            child: const ListTile(
+              leading: Icon(Icons.feedback),
+              title: Text('Feedback'),
+            ),
+          ),
+          const Divider(),
         ],
       ),
     );

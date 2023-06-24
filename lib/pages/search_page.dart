@@ -1,5 +1,6 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:movie_app/constants.dart';
 import 'package:movie_app/services/networking.dart';
 import '../components/movie_tile.dart';
@@ -16,13 +17,33 @@ class _SearchPageState extends State<SearchPage> {
   List searchedMovies = [];
 
   Future startSearching({required String value}) async {
+    List searchedMoviesResult = [];
     NetworkHepler networkHepler = NetworkHepler();
-    List searchedMoviesResult =
-        await networkHepler.searchMovies(searchWord: value);
+    try {
+      searchedMoviesResult =
+          await networkHepler.searchMovies(searchWord: value);
+    } catch (e) {
+      snackBarMessage(message: 'Error searching movies');
+    }
+
     setState(() {
       searchedMovies = searchedMoviesResult;
     });
-    // print(searchedMovies);
+  }
+
+  snackBarMessage({required String message}) {
+    SnackBar snackBar = SnackBar(
+      backgroundColor: Colors.transparent,
+      content: ClipRRect(
+        borderRadius: BorderRadius.circular(12),
+        child: Container(
+            height: 40,
+            color: const Color(0xFFF5F0E8),
+            child: Center(child: Text(message))),
+      ),
+      duration: const Duration(seconds: 3),
+    );
+    ScaffoldMessenger.of(context).showSnackBar(snackBar);
   }
 
   @override
@@ -38,15 +59,9 @@ class _SearchPageState extends State<SearchPage> {
       backgroundColor: kPrimaryColor,
       appBar: AppBar(
         backgroundColor: kPrimaryColor,
-        title: Column(
-          children: [
-            Text('Result', style: kAppBarTitleStyle),
-            Text(_searchTextController.text,
-                style: GoogleFonts.inter(fontSize: 14, color: Colors.grey)),
-          ],
-        ),
+        title: Text('Search movies', style: kAppBarTitleStyle),
         centerTitle: true,
-        elevation: 0,
+        elevation: 2,
         leading: GestureDetector(
           onTap: () {
             Navigator.pop(context);

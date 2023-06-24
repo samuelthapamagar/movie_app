@@ -1,6 +1,9 @@
 //This widget creates movie catagory title with horizontal listview ot the movies
 
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:movie_app/components/navigator.dart';
+import '../pages/see_all_page.dart';
 import 'movie_poster_builder.dart';
 
 class MovieCatagoryWithScroller extends StatelessWidget {
@@ -18,8 +21,23 @@ class MovieCatagoryWithScroller extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(catagory,
-            style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Text(catagory,
+                style:
+                    const TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
+            const Expanded(child: SizedBox()),
+            GestureDetector(
+                onTap: () {
+                  nextPage(context,
+                      SeeAllPage(movieList: movieList, catagory: catagory));
+                },
+                child:
+                    Text('See all', style: GoogleFonts.poppins(fontSize: 14))),
+            const SizedBox(width: 10),
+          ],
+        ),
         const SizedBox(height: 10),
         SizedBox(
           height: 200,

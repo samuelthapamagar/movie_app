@@ -16,12 +16,12 @@ class MovieTile extends StatelessWidget {
 
   //some movies have null value in poster address. This function is created for null safety so that the 'no image' warning is shown if the movie does not have it's poster address
   String getPosterUrl() {
-    if (selectedMovie['backdrop_path'] != null) {
-      String imageUrl2 = selectedMovie['backdrop_path'];
+    if (selectedMovie['poster_path'] != null) {
+      String imageUrl2 = selectedMovie['poster_path'];
       String fullImageUrl = imageUrl + imageUrl2;
       return fullImageUrl;
-    } else if (selectedMovie['poster_path'] != null) {
-      String imageUrl2 = selectedMovie['poster_path'];
+    } else if (selectedMovie['backdrop_path'] != null) {
+      String imageUrl2 = selectedMovie['backdrop_path'];
       String fullImageUrl = imageUrl + imageUrl2;
       return fullImageUrl;
     } else {
@@ -88,9 +88,9 @@ class MovieTile extends StatelessWidget {
                             SubtitleContainer(
                               child: Row(
                                 children: [
-                                  Icon(Icons.star,
+                                  const Icon(Icons.star,
                                       size: 15, color: Color(0xFFFAC301)),
-                                  SizedBox(width: 5),
+                                  const SizedBox(width: 5),
                                   Text(selectedMovie['vote_average'].toString(),
                                       style: GoogleFonts.poppins(fontSize: 14)),
                                 ],
@@ -106,11 +106,11 @@ class MovieTile extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: [
                             SubtitleContainer(
-                                child: Text(
-                                    'Popularity : ${selectedMovie['popularity']}',
-                                    style: GoogleFonts.poppins(
-                                      fontSize: 12,
-                                    ))),
+                              child: Text(
+                                'Popularity : ${selectedMovie['popularity']}',
+                                style: GoogleFonts.poppins(fontSize: 12),
+                              ),
+                            ),
                           ],
                         ),
                       ],

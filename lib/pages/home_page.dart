@@ -96,7 +96,7 @@ class _HomePageState extends State<HomePage> {
         appBar: AppBar(
           title: Text('All Movies', style: kAppBarTitleStyle),
           backgroundColor: kPrimaryColor,
-          elevation: 0,
+          elevation: 2,
           centerTitle: true,
           actions: [
             GestureDetector(
@@ -132,7 +132,7 @@ class _HomePageState extends State<HomePage> {
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
-                const SizedBox(height: 30),
+                const SizedBox(height: 40),
                 MovieCatagoryWithScroller(
                     catagory: 'Trending Now', movieList: trendingMovies),
                 const SizedBox(height: 20),

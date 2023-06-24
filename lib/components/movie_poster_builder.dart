@@ -34,9 +34,6 @@ class MoviePosterBuilder extends StatelessWidget {
                     fit: BoxFit.cover,
                     image: NetworkImage(
                         imageUrl + movieList[index]['poster_path']),
-                    // FastCachedImageProvider(
-                    //   imageUrl + movieList[index]['poster_path'],
-                    // ),
                     child: InkWell(onTap: () {
                       nextPage(context,
                           MovieDetailsPage(selectedMovie: movieList[index]));
