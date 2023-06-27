@@ -11,8 +11,8 @@ class MovieDetailsPage extends StatelessWidget {
 
   final String imageUrl =
       'https://image.tmdb.org/t/p/w500'; //this is the general link for all images
-  //some movies have null value in poster address. This function is created for null safety so that the 'no image' warning is shown if the movie does not have it's poster address
 
+  //some movies have null value in poster address. This function is created for null safety so that the 'no image' warning is shown if the movie does not have it's poster address
   String getPosterUrl() {
     if (selectedMovie['backdrop_path'] != null) {
       String imageUrl2 = selectedMovie['backdrop_path'];
@@ -38,7 +38,7 @@ class MovieDetailsPage extends StatelessWidget {
         backgroundColor: kPrimaryColor,
         body: orientation ==
                 Orientation
-                    .portrait //If the device is in potrait mode then the movie poster and the detais will be at the top and the bottom respectively. If the device is in landscape mode then the movie poster and the detais will be at the left and the right side respectively.
+                    .portrait //If the device is in potrait mode then the movie poster and the details will be at the top and the bottom respectively. If the device is in landscape mode then the movie poster and the details will be at the left and the right side respectively.
             ? Column(
                 children: [
                   Stack(
@@ -88,15 +88,13 @@ class MovieDetailsPage extends StatelessWidget {
                                   selectedMovie['first_air_date'] ??
                                       selectedMovie['release_date'] ??
                                       '',
-                                  style: GoogleFonts.poppins(
-                                      fontSize: 14, color: Colors.lightGreen)),
+                                  style: kReleaseDateTextStyle),
                               const SizedBox(width: 10),
                               const Icon(Icons.language,
                                   color: Colors.grey, size: 14),
                               const SizedBox(width: 3),
                               Text(selectedMovie['original_language'] ?? '',
-                                  style: GoogleFonts.poppins(
-                                      fontSize: 14, color: Colors.grey)),
+                                  style: kLanguageTextStyle),
                             ],
                           ),
                           const SizedBox(height: 5),
@@ -106,7 +104,7 @@ class MovieDetailsPage extends StatelessWidget {
                                   size: 15, color: Color(0xFFFAC301)),
                               const SizedBox(width: 5),
                               Text(selectedMovie['vote_average'].toString(),
-                                  style: GoogleFonts.poppins(fontSize: 14)),
+                                  style: kRatingTextStyle),
                             ],
                           ),
                           const SizedBox(height: 5),
@@ -118,8 +116,7 @@ class MovieDetailsPage extends StatelessWidget {
                                     selectedMovie['original_title'] ??
                                     '',
                                 overflow: TextOverflow.clip,
-                                style: GoogleFonts.poppins(
-                                    fontWeight: FontWeight.bold, fontSize: 22)),
+                                style: kMovieNameTextStyle),
                           ),
                           Center(
                             child: SizedBox(
@@ -127,9 +124,7 @@ class MovieDetailsPage extends StatelessWidget {
                               child: SubtitleContainer(
                                 child: Text(
                                     'Popularity : ${selectedMovie['popularity'].toString()}',
-                                    style: GoogleFonts.poppins(
-                                        fontSize: 12,
-                                        fontWeight: FontWeight.bold)),
+                                    style: kPopularityTextStyle),
                               ),
                             ),
                           ),
@@ -145,7 +140,7 @@ class MovieDetailsPage extends StatelessWidget {
                                   children: [
                                     Text(
                                       selectedMovie['overview'] ?? '',
-                                      style: GoogleFonts.poppins(),
+                                      style: kOverviewTextStyle,
                                     ),
                                   ],
                                 ),
@@ -212,15 +207,13 @@ class MovieDetailsPage extends StatelessWidget {
                                   selectedMovie['first_air_date'] ??
                                       selectedMovie['release_date'] ??
                                       '',
-                                  style: GoogleFonts.poppins(
-                                      fontSize: 14, color: Colors.lightGreen)),
+                                  style: kReleaseDateTextStyle),
                               const SizedBox(width: 10),
                               const Icon(Icons.language,
                                   color: Colors.grey, size: 14),
                               const SizedBox(width: 3),
                               Text(selectedMovie['original_language'] ?? '',
-                                  style: GoogleFonts.poppins(
-                                      fontSize: 14, color: Colors.grey)),
+                                  style: kLanguageTextStyle),
                             ],
                           ),
                           const SizedBox(height: 5),
@@ -230,7 +223,7 @@ class MovieDetailsPage extends StatelessWidget {
                                   size: 15, color: Color(0xFFFAC301)),
                               const SizedBox(width: 5),
                               Text(selectedMovie['vote_average'].toString(),
-                                  style: GoogleFonts.poppins(fontSize: 14)),
+                                  style: kRatingTextStyle),
                             ],
                           ),
                           const SizedBox(height: 5),
@@ -242,8 +235,7 @@ class MovieDetailsPage extends StatelessWidget {
                                     selectedMovie['original_title'] ??
                                     '',
                                 overflow: TextOverflow.clip,
-                                style: GoogleFonts.poppins(
-                                    fontWeight: FontWeight.bold, fontSize: 22)),
+                                style: kMovieNameTextStyle),
                           ),
                           Center(
                             child: SizedBox(
@@ -251,9 +243,7 @@ class MovieDetailsPage extends StatelessWidget {
                               child: SubtitleContainer(
                                 child: Text(
                                     'Popularity : ${selectedMovie['popularity'].toString()}',
-                                    style: GoogleFonts.poppins(
-                                        fontSize: 12,
-                                        fontWeight: FontWeight.bold)),
+                                    style: kPopularityTextStyle),
                               ),
                             ),
                           ),
@@ -269,7 +259,7 @@ class MovieDetailsPage extends StatelessWidget {
                                   children: [
                                     Text(
                                       selectedMovie['overview'] ?? '',
-                                      style: GoogleFonts.poppins(),
+                                      style: kOverviewTextStyle,
                                     ),
                                   ],
                                 ),

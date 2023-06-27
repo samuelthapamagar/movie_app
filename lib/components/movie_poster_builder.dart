@@ -1,4 +1,4 @@
-//This widget is for building the poster a movie
+//This widget is for building the poster of a movie
 
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -52,7 +52,8 @@ class MoviePosterBuilder extends StatelessWidget {
                     movieList[index]['name'] ??
                         movieList[index]['title'] ??
                         movieList[index]['original_name'] ??
-                        movieList[index]['original_title'],
+                        movieList[index]['original_title'] ??
+                        'Loading...',
                     style: GoogleFonts.poppins(),
                     overflow: TextOverflow.ellipsis))),
       ],

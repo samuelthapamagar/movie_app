@@ -9,3 +9,18 @@ const kSecondaryColor1 = Color(0XFF262A34);
 
 var kAppBarTitleStyle =
     GoogleFonts.poppins(fontWeight: FontWeight.bold, fontSize: 22);
+
+var kReleaseDateTextStyle =
+    GoogleFonts.poppins(fontSize: 14, color: Colors.lightGreen);
+
+var kLanguageTextStyle = GoogleFonts.poppins(fontSize: 14, color: Colors.grey);
+
+var kRatingTextStyle = GoogleFonts.poppins(fontSize: 14);
+
+var kMovieNameTextStyle =
+    GoogleFonts.poppins(fontWeight: FontWeight.bold, fontSize: 22);
+
+var kPopularityTextStyle =
+    GoogleFonts.poppins(fontSize: 12, fontWeight: FontWeight.bold);
+
+var kOverviewTextStyle = GoogleFonts.poppins();

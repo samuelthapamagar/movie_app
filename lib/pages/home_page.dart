@@ -66,7 +66,7 @@ class _HomePageState extends State<HomePage> {
     });
   }
 
-  //this if function is created to show the error message to the user through snackbar
+  //this function is created to show the error message to the user through snackbar
   snackBarMessage({required String message}) {
     SnackBar snackBar = SnackBar(
       backgroundColor: Colors.transparent,
